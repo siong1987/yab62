@@ -4,12 +4,16 @@ YAB62 (Yet Another Base 62 Convertor)
 The idea of this gem is simple: I want to write a url shortener with base62. Ruby doesn't support it natively.
 I checked out other gems: [radix62][1], [base62][2] and [alphadecimal][3].
 
-They are all written in Ruby. Then, I have this idea to write this in C extension. Hence, YAB62 is born.
+They are all written in Ruby. Then, I have this idea to write this gem in C extension. Hence, YAB62 is born.
 
 How to use
 ==========
 
+Install it with `gem install yab62`.
+
 ```ruby
+require 'yab62'
+
 1.encode62 # => "1"
 "1".decode62 # => 1
 
@@ -23,4 +27,55 @@ Benchmark
 
 Check out the benchmark here:
 
-<script src="https://gist.github.com/1369278.js"></script>
+```ruby
+# gem alphadecimal
+time = Benchmark.measure do
+  1_000_000.times do |i|
+    encode = i.alphadecimal
+    decode = encode.alphadecimal
+    raise "Assertion error!" unless i == decode
+  end
+end
+
+puts time # 17.060000   0.050000  17.110000 ( 17.507562)
+
+# gem base62
+time = Benchmark.measure do
+  1_000_000.times do |i|
+    encode = i.base62_encode
+    decode = encode.base62_decode
+    raise "Assertion error!" unless i == decode
+  end
+end
+
+puts time # 9.600000   0.020000   9.620000 (  9.802189)
+
+# gem radix62
+time = Benchmark.measure do
+  1_000_000.times do |i|
+    encode = i.encode62
+    decode = encode.decode62
+    raise "Assertion error!" unless i == decode
+  end
+end
+
+puts time # 19.070000   0.040000  19.110000 ( 19.483596)
+
+# gem yab62
+time = Benchmark.measure do
+  1_000_000.times do |i|
+    encode = i.encode62
+    decode = encode.decode62
+    raise "Assertion error!" unless i == decode
+  end
+end
+
+puts time # 0.550000   0.000000   0.550000 (  0.605562)
+```
+
+Check out the full script [here][4].
+
+[1]: https://github.com/k33l0r/radix62
+[2]: https://github.com/jtzemp/base62
+[3]: https://github.com/JackDanger/alphadecimal
+[4]: https://gist.github.com/1369278
