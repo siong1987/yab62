@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["siong1987@gmail.com"]
   gem.description   = %q{Yet another Base62 convertor}
   gem.summary       = %q{What do you expect? This is yet another Base62 convertor written in C extension.}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/siong1987/yab62"
   gem.extensions    = ['ext/yab62/extconf.rb']
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
