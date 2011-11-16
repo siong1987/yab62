@@ -1,0 +1,26 @@
+YAB62 (Yet Another Base 62 Convertor)
+=====================================
+
+The idea of this gem is simple: I want to write a url shortener with base62. Ruby doesn't support it natively.
+I checked out other gems: [radix62][1], [base62][2] and [alphadecimal][3].
+
+They are all written in Ruby. Then, I have this idea to write this in C extension. Hence, YAB62 is born.
+
+How to use
+==========
+
+```ruby
+1.encode62 # => "1"
+"1".decode62 # => 1
+
+# Or, you can do this:
+YAB62.encode62(1) # => "1"
+YAB62.decode62("1") # => 1
+```
+
+Benchmark
+=========
+
+Check out the benchmark here:
+
+<script src="https://gist.github.com/1369278.js"></script>
