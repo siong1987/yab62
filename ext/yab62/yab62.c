@@ -78,7 +78,7 @@ base62_decode (const char *str)
     for (i = 0; i < len; i++) {
         c = str[i];
         if (!isalnum(c)) {
-            return -1;
+            rb_raise(rb_eArgError, "Input is not alphanumeric.");
         }
         val += base62_index[c] * pow(62, len - i - 1);
     }
@@ -101,7 +101,7 @@ static VALUE alphadecimal_base62_encode(VALUE self, VALUE arg) {
 static VALUE alphadecimal_base62_decode(VALUE self, VALUE arg) {
   char* str = StringValuePtr(arg);
   long val = base62_decode(str);
-  return INT2NUM(val);
+  return ULL2NUM(val);
 }
 
 /* ruby calls this to load the extension */
